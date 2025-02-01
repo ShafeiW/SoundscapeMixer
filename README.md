@@ -1,50 +1,56 @@
-# Welcome to your Expo app 👋
+# Soundscape Mixer
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Soundscape Mixer is a mobile application built with React Native and Expo that allows users to mix ambient sounds—such as atmosphere, birdsong, white noise, and crickets—to create a personalized soundscape for relaxation, meditation, or focus. The app features a user-friendly interface with individual volume sliders, a session timer, and a light, nature-inspired theme enhanced by a custom font.
 
-## Get started
+## Features
 
-1. Install dependencies
+- **Ambient Sound Mixing:**  
+  Mix multiple ambient sounds by adjusting individual volume sliders.
+  
+- **Session Timer:**  
+  Set a timer (in minutes) to automatically stop playback after a desired duration.
+
+- **Modern UI:**  
+  A light, nature-inspired design with a custom font ("Helmet") and natural green accents.
+
+- **Cross-Platform:**  
+  Developed with React Native and Expo, ensuring compatibility with both iOS and Android devices.
+
+## Tools and Technologies Used
+
+- **React Native & Expo:**  
+  Provides a fast and efficient framework for building cross-platform mobile apps.
+
+- **expo-av:**  
+  Enables audio playback functionality, including looping and volume control for ambient sounds.
+
+- **react-native-paper:**  
+  Implements Material Design components to build a clean and modern UI.
+
+- **expo-font:**  
+  Loads and applies custom fonts within the app.
+
+- **@react-native-community/slider:**  
+  Offers a smooth slider component for controlling sound volumes.
+
+## Installation
+
+1. **Clone the Repository:**
+
+   ```bash
+   git clone https://github.com/ShafeiW/SoundscapeMixer.git
+   cd soundscape-mixer
+   ```
+2. **Install Dependencies:**   
 
    ```bash
    npm install
    ```
 
-2. Start the app
+3. **Install Expo CLI (if not already installed):** 
 
    ```bash
-    npx expo start
+   npm install -g expo-cli
    ```
 
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
-
-```bash
-npm run reset-project
-```
-
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+## Running the Project 

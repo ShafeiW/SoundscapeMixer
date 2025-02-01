@@ -36,3 +36,43 @@ yarn-error.*
 *.tsbuildinfo
 
 app-example
+
+# Node modules
+node_modules/
+
+# Expo files and caches
+.expo/
+.expo-shared/
+.expo-settings.json
+
+# Android build artifacts
+android/app/build/
+android/build/
+android/.gradle/
+
+# iOS build artifacts and CocoaPods
+ios/build/
+ios/Pods/
+ios/DerivedData/
+
+# Logs and temporary files
+*.log
+logs/
+.cache/
+
+# Environment files (do not commit sensitive data)
+.env
+.env.local
+.env.*.local
+
+# macOS system files
+.DS_Store
+
+# Editor and IDE settings
+.vscode/
+.idea/
+
+# Others
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*

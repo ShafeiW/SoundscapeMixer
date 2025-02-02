@@ -70,3 +70,6 @@ Android: Use the Expo Go app or run on an Android emulator.
 ## Screenshots 
 ![Main Interface](screenshots/mixer1.png)
 ![Main Interface](screenshots/mixer2.png)
+
+## Example Video
+<video src='../SoundscapeMixer/assets/video.mov' width=180/>

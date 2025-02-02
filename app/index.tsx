@@ -13,13 +13,12 @@ const soundAssets = [
   { name: 'Crickets', uri: require('../assets/crickets.mp3') },
 ];
 
+// Default export: handles font loading only.
 export default function SoundscapeMixer() {
-  // Load the custom "Helmet" font
   const [fontsLoaded] = useFonts({
     Helmet: require('../assets/fonts/Helmet-Regular.ttf'),
   });
 
-  // Until the fonts load, render a full-screen ActivityIndicator.
   if (!fontsLoaded) {
     return (
       <View style={styles.loadingContainer}>
@@ -27,11 +26,16 @@ export default function SoundscapeMixer() {
       </View>
     );
   }
+  return <SoundscapeApp />;
+}
 
-  // All hooks are called unconditionally below
+// The main app component with all hooks, countdown, and alarm functionality.
+function SoundscapeApp() {
   const [sounds, setSounds] = useState<any[]>([]);
   const [timer, setTimer] = useState('');
+  const [countdown, setCountdown] = useState<number>(0);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
+  const countdownIntervalRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     async function loadSounds() {
@@ -47,11 +51,13 @@ export default function SoundscapeMixer() {
     }
     loadSounds();
 
-    // Cleanup: unload sounds on unmount
+    // Cleanup: unload sounds and clear timers on unmount.
     return () => {
       sounds.forEach(async (item) => {
         if (item.sound) await item.sound.unloadAsync();
       });
+      if (countdownIntervalRef.current) clearInterval(countdownIntervalRef.current);
+      if (timerRef.current) clearTimeout(timerRef.current);
     };
   }, []);
 
@@ -64,21 +70,74 @@ export default function SoundscapeMixer() {
     }
   };
 
+  // New function to play the alarm chime.
+  const playAlarmChime = async () => {
+    try {
+      const { sound } = await Audio.Sound.createAsync(
+        require('../assets/alarm.mp3'),
+        { volume: 1.0, isLooping: false }
+      );
+      await sound.playAsync();
+      // Unload the alarm sound after 5 seconds.
+      setTimeout(() => {
+        sound.unloadAsync();
+      }, 5000);
+    } catch (error) {
+      console.error("Error playing alarm chime:", error);
+    }
+  };
+
+  const stopSession = async () => {
+    // Stop all sounds.
+    for (let soundItem of sounds) {
+      if (soundItem.sound) await soundItem.sound.stopAsync();
+    }
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+      timerRef.current = null;
+    }
+    if (countdownIntervalRef.current) {
+      clearInterval(countdownIntervalRef.current);
+      countdownIntervalRef.current = null;
+    }
+    setCountdown(0);
+  };
+
   const startSession = async () => {
+    // Start all ambient sounds.
     for (let soundItem of sounds) {
       if (soundItem.sound) await soundItem.sound.playAsync();
     }
     const duration = parseFloat(timer);
     if (duration > 0) {
-      timerRef.current = setTimeout(() => stopSession(), duration * 60000);
+      const totalSeconds = Math.floor(duration * 60);
+      setCountdown(totalSeconds);
+      // Set up the countdown interval to update every second.
+      countdownIntervalRef.current = setInterval(() => {
+        setCountdown(prev => {
+          if (prev <= 1) {
+            clearInterval(countdownIntervalRef.current!);
+            if (timerRef.current) {
+              clearTimeout(timerRef.current);
+              timerRef.current = null;
+            }
+            stopSession().then(() => playAlarmChime());
+            return 0;
+          }
+          return prev - 1;
+        });
+      }, 1000);
+      // Also set a timeout to stop the session after the specified duration.
+      timerRef.current = setTimeout(() => {
+        stopSession().then(() => playAlarmChime());
+      }, duration * 60000);
     }
   };
 
-  const stopSession = async () => {
-    for (let soundItem of sounds) {
-      if (soundItem.sound) await soundItem.sound.stopAsync();
-    }
-    if (timerRef.current) clearTimeout(timerRef.current);
+  const formatTime = (seconds: number) => {
+    const mins = Math.floor(seconds / 60);
+    const secs = seconds % 60;
+    return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
   };
 
   return (
@@ -134,6 +193,14 @@ export default function SoundscapeMixer() {
             />
           </Card.Content>
         </Card>
+        {countdown > 0 && (
+          <Card style={styles.card}>
+            <Card.Title title="Time Remaining" titleStyle={styles.cardTitle} />
+            <Card.Content>
+              <Appbar.Content title={formatTime(countdown)} titleStyle={styles.countdownText} />
+            </Card.Content>
+          </Card>
+        )}
         <Card style={[styles.card, styles.buttonCard]}>
           <Card.Content style={styles.buttonContainer}>
             <Button mode="contained" onPress={startSession} style={styles.button} icon="play">
@@ -229,5 +296,11 @@ const styles = StyleSheet.create({
   button: {
     flex: 1,
     marginHorizontal: 8,
+  },
+  countdownText: {
+    fontFamily: 'Helmet',
+    color: '#333333',
+    fontSize: 24,
+    textAlign: 'center',
   },
 });

@@ -1,7 +1,6 @@
 # Soundscape Mixer
 
-Soundscape Mixer is a mobile application built with React Native and Expo that allows users to mix ambient sounds—such as atmosphere, birdsong, white noise, and crickets—to create a personalized soundscape for relaxation, meditation, or focus. The app features a user-friendly interface with individual volume sliders, a session timer, and a light, nature-inspired theme. Soundscape Mixer was bbuilt with some of my own struggles in mind, as I'm someone who regularly struggles to fall asleep. Soundscape Mixer was an app built for my own benefit, allowing me to freely use whatever sounds I like for whatever duration to help me relax. 
-
+Soundscape Mixer is a mobile app built with React Native and Expo that lets you mix ambient sounds—such as atmospheric noise, birdsong, white noise, and crickets—to create a personalized soundscape for relaxation, meditation, or focus. The app features an intuitive interface with individual volume sliders, a session timer, and a light, nature-inspired design. I created Soundscape Mixer to help address my own struggles with falling asleep, giving me the freedom to experiment with different sound combinations for as long as I need. Plus, the app makes it easy to add your own sounds, allowing you to fully customize your experience to suit your unique needs.
 ## Features
 
 - **Ambient Sound Mixing:**  

@@ -67,10 +67,6 @@ Soundscape Mixer is a mobile app built with React Native and Expo that lets you 
 iOS: Use the Expo Go app or run on an iOS simulator.
 Android: Use the Expo Go app or run on an Android emulator.
 
-## Screenshots 
-![Main Interface](screenshots/mixer1.png)
-![Main Interface](screenshots/mixer2.png)
-
 ## Example Video
-https://github.com/user-attachments/assets/48c48ab3-dcf2-4d9a-a0f1-89a79ba52e06
+https://github.com/user-attachments/assets/a2c32e56-43f1-4f81-af1b-050383060bd0
 
